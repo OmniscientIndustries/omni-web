@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" fill="none" aria-hidden="true">
+  <!-- Placeholder industry node. Replace with the final artwork using the same file name. -->
+  <defs>
+    <radialGradient id="g" cx="40%" cy="32%" r="75%">
+      <stop offset="0" stop-color="#1a1710"/>
+      <stop offset="1" stop-color="#070707"/>
+    </radialGradient>
+  </defs>
+  <circle cx="80" cy="80" r="74" stroke="#d3af37" stroke-opacity=".22" stroke-dasharray="2 6"/>
+  <circle cx="80" cy="80" r="62" fill="url(#g)" stroke="#d3af37" stroke-opacity=".55" stroke-width="1.5"/>
+  <g stroke="#f0cf68" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M80 120V56"/>
+    <path d="M80 56c-4-6-4-12 0-18 4 6 4 12 0 18Z"/>
+    <path d="M80 68c-10-2-14-8-14-14 8 2 14 6 14 14Zm0 0c10-2 14-8 14-14-8 2-14 6-14 14ZM80 84c-10-2-14-8-14-14 8 2 14 6 14 14Zm0 0c10-2 14-8 14-14-8 2-14 6-14 14ZM80 100c-10-2-14-8-14-14 8 2 14 6 14 14Zm0 0c10-2 14-8 14-14-8 2-14 6-14 14Z"/>
+  </g>
+</svg>

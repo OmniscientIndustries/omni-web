@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" fill="none" aria-hidden="true">
+  <!-- Placeholder industry node. Replace with the final artwork using the same file name. -->
+  <defs>
+    <radialGradient id="g" cx="40%" cy="32%" r="75%">
+      <stop offset="0" stop-color="#1a1710"/>
+      <stop offset="1" stop-color="#070707"/>
+    </radialGradient>
+  </defs>
+  <circle cx="80" cy="80" r="74" stroke="#d3af37" stroke-opacity=".22" stroke-dasharray="2 6"/>
+  <circle cx="80" cy="80" r="62" fill="url(#g)" stroke="#d3af37" stroke-opacity=".55" stroke-width="1.5"/>
+  <g stroke="#f0cf68" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M80 40c4 0 6 6 6 12v18l28 16v8l-28-8v20l10 8v6l-16-5-16 5v-6l10-8V86l-28 8v-8l28-16V52c0-6 2-12 6-12Z"/>
+  </g>
+</svg>
