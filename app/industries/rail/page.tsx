@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { AnnotatedImage } from "@/components/industries/AnnotatedImage";
+import { DroneScanTwin } from "@/components/industries/DroneScanTwin";
 import { CtaBand } from "@/components/layout/CtaBand";
 import { PageHero } from "@/components/layout/PageHero";
 import { PhaseTriad } from "@/components/sections/PhaseTriad";
@@ -123,17 +123,7 @@ export default function RailPage() {
       </section>
 
       <section id="digital-twin" aria-labelledby="twin-title" className="relative scroll-mt-20 overflow-hidden border-y border-line bg-ink-900">
-        <div className="relative">
-          <Image
-            src={droneImage.src}
-            alt={droneImage.alt}
-            width={droneImage.width}
-            height={droneImage.height}
-            sizes="100vw"
-            className="h-[62vh] min-h-[420px] w-full object-cover object-[62%_50%] lg:h-[78vh]"
-          />
-          <div aria-hidden className="absolute inset-0 bg-[linear-gradient(180deg,rgb(10_10_10/0.1)_0%,rgb(10_10_10/0)_45%,#0a0a0a_100%)]" />
-          <div aria-hidden className="absolute inset-0 hidden bg-[linear-gradient(90deg,rgb(10_10_10/0.85)_0%,rgb(10_10_10/0.2)_45%,transparent_60%)] lg:block" />
+        <DroneScanTwin image={droneImage}>
           <div className="relative lg:absolute lg:inset-x-0 lg:bottom-0">
             <div className="container-site pt-10 lg:pt-0 lg:pb-16">
               <Reveal className="max-w-xl">
@@ -144,7 +134,7 @@ export default function RailPage() {
               </Reveal>
             </div>
           </div>
-        </div>
+        </DroneScanTwin>
         <div className="container-site pb-24 sm:pb-28">
           <ol className="mt-10 grid gap-6 sm:grid-cols-2 lg:mt-12 lg:grid-cols-4">
             {droneSteps.map((s, i) => (
