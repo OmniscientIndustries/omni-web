@@ -5,6 +5,12 @@ import nextTs from "eslint-config-next/typescript";
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
+  {
+    // The Company Brain is driven imperatively: Three.js objects and the shared
+    // BrainStore are mutated inside useFrame / event callbacks, never during render.
+    files: ["components/three/**/*.{ts,tsx}", "components/sections/BrainNodeLabels.tsx"],
+    rules: { "react-hooks/immutability": "off" },
+  },
   // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:

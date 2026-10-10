@@ -38,13 +38,12 @@ Without delivery configured, the contact form never claims success: in developme
 All copy lives in typed modules under `content/`:
 
 - `site.ts` — name, tagline, navigation, founders
-- `industries.ts`, `rail.ts`, `sarva.ts`, `company.ts`, `contact.ts`, `partners.ts`
+- `industries.ts`, `rail.ts`, `sarva.ts`, `company.ts`, `contact.ts`
 - `news.ts` — articles. `status: "draft"` entries are labelled “Draft perspective”, noindexed and excluded from Article structured data and the sitemap. Change to `"published"` once approved.
 
 ## Brand assets and imagery
 
 - **Logo:** `components/brand/OmniscientMark.tsx` is a temporary placeholder. Place the approved mark at `public/brand/omniscient-mark.svg` and swap the component’s SVG for it (also replace `app/icon.svg`).
-- **Partner logos:** add approved files under `public/brand/partners/` and set `logo` in `content/partners.ts`; the ticker falls back to typeset names.
 - **Industry imagery:** `public/media/`. Rail uses the supplied images. Other industries use procedural SVG visuals until approved imagery is set via `image` in `content/industries.ts` / `content/news.ts`.
 - **Legal:** footer privacy/terms/cookie entries and the SARVA independence statement are placeholders for approved legal copy.
 

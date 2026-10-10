@@ -202,31 +202,6 @@
   animation-delay: var(--delay, 0ms);
 }
 
-/* ---------- Partner ticker ---------- */
-
-@keyframes ticker {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    transform: translate3d(-50%, 0, 0);
-  }
-}
-
-.ticker-track {
-  animation: ticker 42s linear infinite;
-}
-
-.ticker:hover .ticker-track,
-.ticker:focus-within .ticker-track,
-.ticker[data-paused="true"] .ticker-track {
-  animation-play-state: paused;
-}
-
-.ticker-mask {
-  mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
-}
-
 /* ---------- Industry card interactions ---------- */
 
 @keyframes scan-once {
@@ -800,10 +775,6 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
-  }
-
-  .ticker-track {
-    animation: none !important;
   }
 
   .brain-orbit,

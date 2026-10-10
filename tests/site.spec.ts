@@ -7,19 +7,11 @@ test.describe("homepage", () => {
     await page.goto("/");
     await expect(page.getByRole("heading", { level: 1 })).toHaveText("Intelligence for the physical world.");
     const order = await page.evaluate(() =>
-      ["partners-label", "industries-title", "news-title"].map((id) => document.getElementById(id)?.getBoundingClientRect().top ?? -1),
+      ["industries-title", "news-title"].map((id) => document.getElementById(id)?.getBoundingClientRect().top ?? -1),
     );
     expect(order.every((v) => v > 0)).toBe(true);
     expect([...order].sort((a, b) => a - b)).toEqual(order);
     await expect(page.locator("footer")).toBeVisible();
-  });
-
-  test("partner ticker lists each partner once to assistive technology", async ({ page }) => {
-    await page.goto("/");
-    const ticker = page.locator("section[aria-labelledby='partners-label']");
-    for (const name of ["VolkerRail", "NEOS", "SWGR", "University of Glasgow Drone Society"]) {
-      await expect(ticker.getByRole("listitem").filter({ hasText: name })).toHaveCount(1);
-    }
   });
 
   test("industries show the launch cards before expansion cards", async ({ page }) => {
@@ -151,9 +143,9 @@ test.describe("contact", () => {
 test.describe("reduced motion", () => {
   test.use({ reducedMotion: "reduce" });
 
-  test("ticker is static and hero content is immediately visible", async ({ page }) => {
+  test("hero content is immediately visible", async ({ page }) => {
     await page.goto("/");
-    await expect(page.locator(".ticker")).toBeHidden();
+    await expect(page.locator(".ticker")).toHaveCount(0);
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
     const opacity = await page.getByRole("heading", { level: 1 }).evaluate((el) => getComputedStyle(el).opacity);
     expect(Number(opacity)).toBeGreaterThan(0.95);

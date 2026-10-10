@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { CompanyBrainHero } from "@/components/sections/CompanyBrainHero";
 import { IndustriesSection } from "@/components/sections/IndustriesSection";
 import { NewsSection } from "@/components/sections/NewsSection";
-import { PartnerTicker } from "@/components/sections/PartnerTicker";
 import { site } from "@/content/site";
 import { pageMetadata } from "@/lib/seo";
 
@@ -25,7 +24,6 @@ export default function HomePage() {
   return (
     <>
       <CompanyBrainHero />
-      <PartnerTicker />
       <IndustriesSection />
       <NewsSection />
     </>

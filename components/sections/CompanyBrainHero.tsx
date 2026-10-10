@@ -3,30 +3,48 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useEffect, useRef } from "react";
-import { CompanyBrainOrbit } from "@/components/hero/brain/CompanyBrainOrbit";
-import { HeroParticles } from "@/components/hero/HeroParticles";
+import { useReducedMotion } from "motion/react";
+import dynamic from "next/dynamic";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { createBrainStore } from "@/components/three/brain-config";
+import { CanvasErrorBoundary } from "@/components/three/CanvasErrorBoundary";
+import { CompanyBrainFallback } from "@/components/three/CompanyBrainFallback";
 import { GoldButton } from "@/components/ui/GoldButton";
+import { useRenderQuality, useWebGLSupport } from "@/lib/device";
+import { BrainNodeLabels } from "./BrainNodeLabels";
 import { BrainPhaseHud, phaseFor, statusFor } from "./BrainPhaseHud";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
+
+const CompanyBrainCanvas = dynamic(() => import("@/components/three/CompanyBrainCanvas"), {
+  ssr: false,
+});
 
 export function CompanyBrainHero() {
   const section = useRef<HTMLElement>(null);
   const pin = useRef<HTMLDivElement>(null);
   const stage = useRef<HTMLDivElement>(null);
   const hud = useRef<HTMLDivElement>(null);
+  const [store] = useState(createBrainStore);
+  const [running, setRunning] = useState(true);
+  const [failed, setFailed] = useState(false);
+  const support = useWebGLSupport();
+  const quality = useRenderQuality();
+  const reduced = useReducedMotion() ?? false;
 
-  // Ambient motion only runs while the hero is visible and the tab is active.
+  const showCanvas = support === "supported" && !failed;
+  const showFallback = support === "unsupported" || failed;
+
+  const onReady = useCallback(() => {
+    stage.current?.setAttribute("data-ready", "true");
+  }, []);
+
+  // Render only while the hero is visible and the tab is active.
   useEffect(() => {
     const el = section.current;
-    const stageEl = stage.current;
-    if (!el || !stageEl) return;
+    if (!el) return;
     let inView = true;
-    const sync = () => {
-      stageEl.dataset.running = String(inView && document.visibilityState === "visible");
-      el.dataset.running = stageEl.dataset.running;
-    };
+    const sync = () => setRunning(inView && document.visibilityState === "visible");
     const observer = new IntersectionObserver(([entry]) => {
       inView = entry.isIntersecting;
       sync();
@@ -39,45 +57,29 @@ export function CompanyBrainHero() {
     };
   }, []);
 
-  // Cursor parallax on fine pointers only: a few pixels of depth, never more.
+  // Gentle cursor parallax on fine pointers only.
   useEffect(() => {
-    const stageEl = stage.current;
-    if (!stageEl) return;
-    if (!window.matchMedia("(pointer: fine) and (prefers-reduced-motion: no-preference)").matches) return;
-    let frame = 0;
-    let x = 0;
-    let y = 0;
-    const apply = () => {
-      frame = 0;
-      stageEl.style.setProperty("--mx", x.toFixed(3));
-      stageEl.style.setProperty("--my", y.toFixed(3));
-    };
+    if (reduced || !window.matchMedia("(pointer: fine)").matches) return;
     const onMove = (e: PointerEvent) => {
-      x = Math.max(-1, Math.min(1, (e.clientX / window.innerWidth) * 2 - 1));
-      y = Math.max(-1, Math.min(1, (e.clientY / window.innerHeight) * 2 - 1));
-      if (!frame) frame = requestAnimationFrame(apply);
+      store.pointer.x = (e.clientX / window.innerWidth) * 2 - 1;
+      store.pointer.y = (e.clientY / window.innerHeight) * 2 - 1;
     };
     window.addEventListener("pointermove", onMove, { passive: true });
-    return () => {
-      window.removeEventListener("pointermove", onMove);
-      cancelAnimationFrame(frame);
-    };
-  }, []);
+    return () => window.removeEventListener("pointermove", onMove);
+  }, [reduced, store]);
 
-  // Scroll choreography: Perceive → Understand → Act, written as data attributes.
+  // Scroll choreography: Perceive → Understand → Act.
   useGSAP(
     () => {
       const hudEl = hud.current;
-      const stageEl = stage.current;
       const bar = hudEl?.querySelector<HTMLElement>("[data-bar]");
       const write = (p: number) => {
+        store.progress = p;
+        if (!hudEl) return;
         const phase = phaseFor(p);
         const status = statusFor(p);
-        for (const el of [hudEl, stageEl]) {
-          if (!el) continue;
-          if (el.dataset.phase !== phase) el.dataset.phase = phase;
-          if (el.dataset.status !== status) el.dataset.status = status;
-        }
+        if (hudEl.dataset.phase !== phase) hudEl.dataset.phase = phase;
+        if (hudEl.dataset.status !== status) hudEl.dataset.status = status;
         if (bar) bar.style.transform = `scaleX(${p.toFixed(3)})`;
       };
 
@@ -94,30 +96,19 @@ export function CompanyBrainHero() {
             write(0.5);
             return;
           }
-          ScrollTrigger.create(
-            desktop
-              ? {
-                  trigger: section.current,
-                  start: "top top",
-                  end: "+=160%",
-                  pin: pin.current,
-                  scrub: true,
-                  anticipatePin: 1,
-                  invalidateOnRefresh: true,
-                  onUpdate: (self) => write(self.progress),
-                  onRefresh: (self) => write(self.progress),
-                }
-              : {
-                  // Stacked layouts: the story plays as the visualisation passes through the viewport.
-                  trigger: stageEl,
-                  start: "top 90%",
-                  end: "bottom 10%",
-                  scrub: true,
-                  invalidateOnRefresh: true,
-                  onUpdate: (self) => write(self.progress),
-                  onRefresh: (self) => write(self.progress),
-                },
-          );
+          ScrollTrigger.create({
+            trigger: section.current,
+            start: "top top",
+            end: desktop ? "+=160%" : "bottom top",
+            pin: desktop ? pin.current : false,
+            pinSpacing: true,
+            scrub: true,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+            // Unpinned layouts open on the aligned ring and resolve as the hero scrolls away.
+            onUpdate: (self) => write(desktop ? self.progress : 0.42 + 0.58 * self.progress),
+            onRefresh: (self) => write(desktop ? self.progress : 0.42 + 0.58 * self.progress),
+          });
         },
       );
     },
@@ -125,56 +116,102 @@ export function CompanyBrainHero() {
   );
 
   return (
-    <section ref={section} aria-labelledby="hero-title" className="relative" data-running="true">
-      <div ref={pin} className="relative isolate overflow-x-clip bg-ink-950 lg:h-svh lg:min-h-[720px]">
+    <section ref={section} aria-labelledby="hero-title" className="relative">
+      <div ref={pin} className="relative isolate h-svh min-h-[860px] w-full sm:min-h-[680px] overflow-hidden bg-ink-950">
         <div
           aria-hidden
-          className="absolute inset-0 bg-[radial-gradient(70%_38%_at_50%_72%,rgb(211_175_55/0.07),transparent_70%)] lg:bg-[radial-gradient(42%_58%_at_70%_50%,rgb(211_175_55/0.075),transparent_72%)]"
+          className="absolute inset-0 bg-[radial-gradient(50%_60%_at_68%_48%,rgb(211_175_55/0.07),transparent_70%)] max-lg:bg-[radial-gradient(80%_45%_at_50%_30%,rgb(211_175_55/0.08),transparent_70%)]"
         />
-        <HeroParticles />
 
-        <div className="container-site relative z-10 grid grid-cols-[minmax(0,1fr)] pt-[calc(var(--header-h)+2.75rem)] pb-4 sm:pb-6 lg:h-full lg:grid-cols-[minmax(0,42fr)_minmax(0,58fr)] lg:gap-6 lg:pt-[var(--header-h)] lg:pb-0">
-          <div className="flex flex-col justify-center lg:pb-10">
-            <p className="eyebrow animate-rise mb-6 flex items-center gap-3 [--delay:300ms]">
-              <span aria-hidden className="h-px w-8 bg-gold/70" />
-              Omniscient Industries
-            </p>
-            <h1
-              id="hero-title"
-              className="text-display animate-rise text-[clamp(2.3rem,6.2vw,5.4rem)] text-bone [--delay:420ms] min-[1800px]:text-[4.6vw]"
-            >
-              Intelligence for the physical world.
-            </h1>
-            <p className="animate-rise mt-6 max-w-[37rem] text-[1rem] leading-relaxed text-stone [--delay:560ms] sm:text-[1.0625rem] lg:mt-8 min-[1800px]:max-w-[39rem] min-[1800px]:text-[1.1875rem]">
-              Omniscient connects fragmented systems, operational data and real-world environments
-              into a living Company Brain—helping complex organisations understand what is
-              happening, identify risk earlier and act with confidence.
-            </p>
-            <div className="animate-rise mt-8 flex flex-wrap items-center gap-3 [--delay:700ms] lg:mt-10">
-              <GoldButton href="/industries">Explore Industries</GoldButton>
-              <GoldButton href="/mission" variant="secondary">
-                Our Mission
-              </GoldButton>
-            </div>
-            <p className="animate-fade mt-8 font-mono text-[0.6875rem] tracking-[0.22em] text-stone uppercase [--delay:1000ms] lg:mt-12">
-              Perceive. <span className="text-gold-muted">/</span> Understand.{" "}
-              <span className="text-gold-muted">/</span> Act.
-            </p>
-          </div>
+        <div ref={stage} data-ready="false" className="group/stage absolute inset-0">
+          {showCanvas ? (
+            <>
+              <BrainLoader />
+              <div aria-hidden className="absolute inset-0 opacity-0 transition-opacity duration-[1200ms] ease-[var(--ease-brand)] group-data-[ready=true]/stage:opacity-100">
+                <CanvasErrorBoundary onError={() => setFailed(true)}>
+                  <CompanyBrainCanvas store={store} quality={quality} reduced={reduced} running={running} onReady={onReady} />
+                </CanvasErrorBoundary>
+              </div>
+            </>
+          ) : support === "pending" ? (
+            <BrainLoader />
+          ) : null}
+          <noscript>
+            <CompanyBrainFallback interactive={false} />
+          </noscript>
         </div>
 
-        <CompanyBrainOrbit ref={stage} />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-[linear-gradient(0deg,#050505_0%,rgb(5_5_5/0.94)_38%,rgb(5_5_5/0.2)_62%,transparent_75%)] lg:bg-[linear-gradient(90deg,#050505_0%,rgb(5_5_5/0.88)_30%,rgb(5_5_5/0.2)_52%,transparent_62%)]"
+        />
+        <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-ink-950 to-transparent" />
+
+        {showFallback ? (
+          <div className="absolute inset-0 z-[4]">
+            <CompanyBrainFallback />
+          </div>
+        ) : null}
+        {showCanvas ? <BrainNodeLabels store={store} /> : null}
+
+        <div className="pointer-events-none relative z-10 flex h-full flex-col justify-end pb-12 sm:pb-16 lg:justify-center lg:pt-20 lg:pb-0">
+          <div className="container-site">
+            <div className="pointer-events-auto max-w-[35rem] min-[1800px]:max-w-[31vw]">
+              <p className="eyebrow animate-rise mb-6 flex items-center gap-3 [--delay:900ms]">
+                <span aria-hidden className="h-px w-8 bg-gold/70" />
+                Omniscient Industries
+              </p>
+              <h1
+                id="hero-title"
+                className="text-display animate-rise text-[clamp(2.3rem,6.2vw,5.4rem)] min-[1800px]:text-[4.6vw] text-bone [--delay:1050ms]"
+              >
+                Intelligence for the physical world.
+              </h1>
+              <p className="animate-rise mt-6 max-w-[34rem] text-[1rem] leading-relaxed text-stone [--delay:1250ms] sm:text-[1.0625rem] lg:mt-8 lg:max-w-[30rem] xl:max-w-[34rem] min-[1800px]:max-w-[28vw] min-[1800px]:text-[1.1875rem]">
+                Omniscient connects fragmented systems, operational data and real-world environments
+                into a living Company Brain—helping complex organisations understand what is
+                happening, identify risk earlier and act with confidence.
+              </p>
+              <div className="animate-rise mt-8 flex flex-wrap items-center gap-3 [--delay:1450ms] lg:mt-10">
+                <GoldButton href="/industries">Explore Industries</GoldButton>
+                <GoldButton href="/mission" variant="secondary">
+                  Our Mission
+                </GoldButton>
+              </div>
+              <p className="animate-fade mt-8 font-mono text-[0.6875rem] tracking-[0.22em] text-stone uppercase [--delay:1800ms] lg:mt-12">
+                Perceive. <span className="text-gold-muted">/</span> Understand.{" "}
+                <span className="text-gold-muted">/</span> Act.
+              </p>
+            </div>
+          </div>
+        </div>
 
         <BrainPhaseHud ref={hud} />
 
         <p className="sr-only">
-          Illustration of the Omniscient Company Brain: a small rotating globe at the centre of an
-          orbital system, connected to six operating environments — Rail, Public Security, Construction, Airports, Farming and
-          Mining. As the page scrolls, fragmented signals are perceived, organised into understood
+          Illustration of the Omniscient Company Brain: a central intelligence core connected to six
+          operating environments — Rail, Public Security, Construction, Airports, Farming and Mining.
+          As the page scrolls, fragmented signals are perceived, organised into understood
           relationships, and an illustrative operational conflict is detected and resolved into a
           recommended action for human approval.
         </p>
       </div>
     </section>
+  );
+}
+
+function BrainLoader() {
+  return (
+    <div
+      aria-hidden
+      className="pointer-events-none absolute inset-x-0 top-[22%] flex sm:top-[34%] justify-center transition-opacity duration-700 group-data-[ready=true]/stage:opacity-0 lg:inset-y-0 lg:top-0 lg:left-[38%] lg:items-center"
+    >
+      <div className="relative flex flex-col items-center gap-5">
+        <span className="relative block size-2 rounded-full bg-gold-bright shadow-[0_0_24px_6px_rgb(211_175_55/0.45)]">
+          <span className="absolute inset-0 animate-ping rounded-full bg-gold/60 motion-reduce:hidden" />
+        </span>
+        <span className="font-mono text-[0.625rem] tracking-[0.22em] text-stone-dim uppercase">Initialising</span>
+      </div>
+    </div>
   );
 }
