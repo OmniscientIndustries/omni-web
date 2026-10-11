@@ -15,6 +15,11 @@ const subscribeNoop = () => () => {};
 
 export function MobileNavigation({ pathname }: { pathname: string }) {
   const [open, setOpen] = useState(false);
+  const [trackedPath, setTrackedPath] = useState(pathname);
+  if (trackedPath !== pathname) {
+    setTrackedPath(pathname);
+    setOpen(false);
+  }
   const isClient = useSyncExternalStore(
     subscribeNoop,
     () => true,
@@ -80,8 +85,8 @@ export function MobileNavigation({ pathname }: { pathname: string }) {
         type="button"
         aria-expanded={open}
         aria-controls={PANEL_ID}
-        onClick={() => setOpen(true)}
-        className="-mr-2 inline-flex min-h-11 min-w-11 items-center justify-center gap-3 px-2 text-[0.8125rem] font-medium tracking-[0.14em] text-bone uppercase"
+        onClick={() => setOpen((current) => !current)}
+        className="-mr-2 inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center gap-3 px-2 text-[0.8125rem] font-medium tracking-[0.14em] text-bone uppercase"
       >
         Menu
         <span aria-hidden className="flex w-5 flex-col gap-[5px]">
@@ -100,13 +105,13 @@ export function MobileNavigation({ pathname }: { pathname: string }) {
             role="dialog"
             aria-modal="true"
             aria-label="Site navigation"
-            className="fixed inset-0 z-[70] flex flex-col overflow-y-auto bg-ink-950"
+            className="fixed inset-0 z-[70] flex flex-col overflow-y-auto bg-ink-950 pt-[env(safe-area-inset-top,0px)] pb-[env(safe-area-inset-bottom,0px)]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: duration.standard, ease: ease.brand }}
           >
-            <div className="container-site flex h-[var(--header-h)] shrink-0 items-center justify-between border-b border-line">
+            <div className="container-site flex h-[var(--header-bar)] shrink-0 items-center justify-between border-b border-line">
               <Link href="/" onClick={() => setOpen(false)} className="flex min-h-11 items-center" aria-label="Omniscient Industries — home">
                 <Wordmark />
               </Link>

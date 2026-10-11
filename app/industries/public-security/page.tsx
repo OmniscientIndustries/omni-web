@@ -49,7 +49,9 @@ export default function PublicSecurityPage() {
             </div>
             <figcaption className="mt-4 flex items-center justify-between text-[0.875rem] text-stone-dim">
               <span>One voice becomes a pattern.</span>
-              <span className="font-mono text-[0.625rem] tracking-[0.16em] uppercase">Hover to aggregate</span>
+              <span className="hidden font-mono text-[0.625rem] tracking-[0.16em] uppercase [@media(hover:hover)]:inline">
+                Hover to aggregate
+              </span>
             </figcaption>
           </figure>
         }

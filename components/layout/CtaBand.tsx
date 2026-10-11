@@ -21,7 +21,7 @@ export function CtaBand({ title, text, href = "/contact", label = "Start a conve
               {title}
             </h2>
             <p className="mt-4 text-[1.0625rem] leading-relaxed text-stone">{text}</p>
-            <GoldButton href={href} className="mt-8">
+            <GoldButton href={href} className="mt-8 w-full sm:w-auto">
               {label}
             </GoldButton>
           </div>

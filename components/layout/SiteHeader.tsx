@@ -36,9 +36,9 @@ export function SiteHeader() {
   return (
     <header
       ref={ref}
-      className="animate-drop fixed inset-x-0 top-0 z-50 border-b border-[rgb(211_175_55/calc(var(--hp,0)*0.16))] bg-[rgb(5_5_5/calc(var(--hp,0)*0.82))] backdrop-blur-[calc(var(--hp,0)*16px)] [--hp:0]"
+      className="animate-drop fixed inset-x-0 top-0 z-50 border-b border-[rgb(211_175_55/calc(var(--hp,0)*0.16))] bg-[rgb(5_5_5/calc(var(--hp,0)*0.82))] pt-[env(safe-area-inset-top,0px)] backdrop-blur-[calc(var(--hp,0)*16px)] [--hp:0] lg:pt-0"
     >
-      <div className="container-site flex h-[var(--header-h)] items-center justify-between">
+      <div className="container-site flex h-[var(--header-bar)] items-center justify-between gap-3">
         <Link
           href="/"
           className="-mx-2 flex min-h-11 items-center px-2"

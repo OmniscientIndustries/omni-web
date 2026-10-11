@@ -91,7 +91,7 @@ export default async function ArticlePage({ params }: PageProps<"/news/[slug]">)
           </Link>
           <div className="mt-10 max-w-[52rem]">
             <NewsMeta article={article} />
-            <h1 id="article-title" className="text-display mt-6 text-[clamp(2.25rem,5vw,4.25rem)] text-bone">
+            <h1 id="article-title" className="text-display mt-6 text-[clamp(1.85rem,5vw,4.25rem)] text-bone">
               {article.title}
             </h1>
             <p className="mt-6 max-w-[40rem] text-[1.125rem] leading-relaxed text-stone sm:text-[1.25rem]">{article.summary}</p>

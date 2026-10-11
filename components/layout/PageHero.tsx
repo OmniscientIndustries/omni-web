@@ -41,7 +41,7 @@ export function PageHero({ eyebrow, title, intro, children, aside, back }: Props
             </p>
             <h1
               id="page-title"
-              className="text-display animate-rise text-[clamp(2.4rem,5.4vw,4.6rem)] text-bone [--delay:80ms]"
+              className="text-display animate-rise text-[clamp(1.85rem,5.4vw,4.6rem)] text-bone [--delay:80ms]"
             >
               {title}
             </h1>

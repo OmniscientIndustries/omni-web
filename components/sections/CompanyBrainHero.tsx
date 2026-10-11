@@ -117,13 +117,21 @@ export function CompanyBrainHero() {
 
   return (
     <section ref={section} aria-labelledby="hero-title" className="relative">
-      <div ref={pin} className="relative isolate h-svh min-h-[860px] w-full sm:min-h-[680px] overflow-hidden bg-ink-950">
+      <div ref={pin} className="relative isolate w-full bg-ink-950 landscape:max-lg:grid landscape:max-lg:grid-cols-[minmax(0,46%)_minmax(0,1fr)] landscape:max-lg:items-center landscape:max-lg:pt-[var(--header-h)] lg:block lg:h-svh lg:min-h-[720px] lg:overflow-hidden lg:pt-0">
         <div
           aria-hidden
-          className="absolute inset-0 bg-[radial-gradient(50%_60%_at_68%_48%,rgb(211_175_55/0.07),transparent_70%)] max-lg:bg-[radial-gradient(80%_45%_at_50%_30%,rgb(211_175_55/0.08),transparent_70%)]"
+          className="pointer-events-none absolute inset-0 hidden bg-[radial-gradient(50%_60%_at_68%_48%,rgb(211_175_55/0.07),transparent_70%)] lg:block"
         />
 
-        <div ref={stage} data-ready="false" className="group/stage absolute inset-0">
+        <div
+          ref={stage}
+          data-ready="false"
+          className="group/stage relative h-[clamp(188px,38svh,320px)] w-full max-lg:mt-[var(--header-h)] landscape:max-lg:mt-0 landscape:max-lg:h-[min(78svh,360px)] md:portrait:h-[clamp(300px,40svh,440px)] lg:absolute lg:inset-0 lg:mt-0 lg:h-auto"
+        >
+          <div
+            aria-hidden
+            className="absolute inset-0 bg-[radial-gradient(70%_65%_at_50%_48%,rgb(211_175_55/0.08),transparent_72%)] lg:hidden"
+          />
           {showCanvas ? (
             <>
               <BrainLoader />
@@ -139,46 +147,48 @@ export function CompanyBrainHero() {
           <noscript>
             <CompanyBrainFallback interactive={false} />
           </noscript>
+          {showFallback ? (
+            <div className="absolute inset-0 z-[4]">
+              <CompanyBrainFallback />
+            </div>
+          ) : null}
+          {showCanvas ? <BrainNodeLabels store={store} /> : null}
+          <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-ink-950 to-transparent lg:hidden" />
         </div>
 
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[linear-gradient(0deg,#050505_0%,rgb(5_5_5/0.94)_38%,rgb(5_5_5/0.2)_62%,transparent_75%)] lg:bg-[linear-gradient(90deg,#050505_0%,rgb(5_5_5/0.88)_30%,rgb(5_5_5/0.2)_52%,transparent_62%)]"
+          className="pointer-events-none absolute inset-0 hidden bg-[linear-gradient(90deg,#050505_0%,rgb(5_5_5/0.88)_30%,rgb(5_5_5/0.2)_52%,transparent_62%)] lg:block"
         />
-        <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-ink-950 to-transparent" />
+        <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 hidden h-32 bg-gradient-to-t from-ink-950 to-transparent lg:block" />
 
-        {showFallback ? (
-          <div className="absolute inset-0 z-[4]">
-            <CompanyBrainFallback />
-          </div>
-        ) : null}
-        {showCanvas ? <BrainNodeLabels store={store} /> : null}
-
-        <div className="pointer-events-none relative z-10 flex h-full flex-col justify-end pb-12 sm:pb-16 lg:justify-center lg:pt-20 lg:pb-0">
+        <div className="pointer-events-none relative z-10 pb-[max(2.5rem,env(safe-area-inset-bottom))] landscape:max-lg:py-6 lg:absolute lg:inset-0 lg:flex lg:h-full lg:flex-col lg:justify-center lg:pt-20 lg:pb-0">
           <div className="container-site">
             <div className="pointer-events-auto max-w-[35rem] min-[1800px]:max-w-[31vw]">
-              <p className="eyebrow animate-rise mb-6 flex items-center gap-3 [--delay:900ms]">
+              <p className="eyebrow animate-rise mb-4 flex items-center gap-3 [--delay:900ms] lg:mb-6">
                 <span aria-hidden className="h-px w-8 bg-gold/70" />
                 Omniscient Industries
               </p>
               <h1
                 id="hero-title"
-                className="text-display animate-rise text-[clamp(2.3rem,6.2vw,5.4rem)] min-[1800px]:text-[4.6vw] text-bone [--delay:1050ms]"
+                className="text-display animate-rise text-[clamp(1.85rem,8vw,2.35rem)] text-bone [--delay:1050ms] sm:text-[clamp(2.15rem,5vw,2.75rem)] landscape:max-lg:text-[clamp(1.55rem,3vw,2rem)] lg:text-[clamp(2.6rem,6.2vw,5.4rem)] min-[1800px]:text-[4.6vw]"
               >
                 Intelligence for the physical world.
               </h1>
-              <p className="animate-rise mt-6 max-w-[34rem] text-[1rem] leading-relaxed text-stone [--delay:1250ms] sm:text-[1.0625rem] lg:mt-8 lg:max-w-[30rem] xl:max-w-[34rem] min-[1800px]:max-w-[28vw] min-[1800px]:text-[1.1875rem]">
+              <p className="animate-rise mt-4 max-w-[34rem] text-[0.9375rem] leading-relaxed text-stone [--delay:1250ms] sm:mt-6 sm:text-[1.0625rem] lg:mt-8 lg:max-w-[30rem] xl:max-w-[34rem] min-[1800px]:max-w-[28vw] min-[1800px]:text-[1.1875rem]">
                 Omniscient connects fragmented systems, operational data and real-world environments
                 into a living Company Brain—helping complex organisations understand what is
                 happening, identify risk earlier and act with confidence.
               </p>
-              <div className="animate-rise mt-8 flex flex-wrap items-center gap-3 [--delay:1450ms] lg:mt-10">
-                <GoldButton href="/industries">Explore Industries</GoldButton>
-                <GoldButton href="/mission" variant="secondary">
+              <div className="animate-rise mt-6 flex flex-col gap-3 [--delay:1450ms] sm:flex-row sm:flex-wrap sm:items-center lg:mt-10">
+                <GoldButton href="/industries" className="w-full sm:w-auto">
+                  Explore Industries
+                </GoldButton>
+                <GoldButton href="/mission" variant="secondary" className="w-full sm:w-auto">
                   Our Mission
                 </GoldButton>
               </div>
-              <p className="animate-fade mt-8 font-mono text-[0.6875rem] tracking-[0.22em] text-stone uppercase [--delay:1800ms] lg:mt-12">
+              <p className="animate-fade mt-6 font-mono text-[0.6875rem] tracking-[0.22em] text-stone uppercase [--delay:1800ms] lg:mt-12">
                 Perceive. <span className="text-gold-muted">/</span> Understand.{" "}
                 <span className="text-gold-muted">/</span> Act.
               </p>
@@ -204,7 +214,7 @@ function BrainLoader() {
   return (
     <div
       aria-hidden
-      className="pointer-events-none absolute inset-x-0 top-[22%] flex sm:top-[34%] justify-center transition-opacity duration-700 group-data-[ready=true]/stage:opacity-0 lg:inset-y-0 lg:top-0 lg:left-[38%] lg:items-center"
+      className="pointer-events-none absolute inset-0 flex items-center justify-center transition-opacity duration-700 group-data-[ready=true]/stage:opacity-0 lg:inset-y-0 lg:left-[38%] lg:justify-start"
     >
       <div className="relative flex flex-col items-center gap-5">
         <span className="relative block size-2 rounded-full bg-gold-bright shadow-[0_0_24px_6px_rgb(211_175_55/0.45)]">

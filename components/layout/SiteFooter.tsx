@@ -21,7 +21,7 @@ function FooterLinks({ title, links }: { title: string; links: { label: string; 
           <li key={link.href}>
             <Link
               href={link.href}
-              className="inline-flex min-h-10 items-center text-[0.95rem] text-stone transition-colors duration-[var(--duration-fast)] hover:text-bone"
+              className="inline-flex min-h-11 items-center text-[0.95rem] text-stone transition-colors duration-[var(--duration-fast)] hover:text-bone"
             >
               {link.label}
             </Link>
@@ -40,11 +40,11 @@ export function SiteFooter() {
         aria-hidden
         className="pointer-events-none absolute inset-x-0 bottom-0 h-[70%] bg-[radial-gradient(60%_80%_at_50%_100%,rgb(211_175_55/0.08),transparent_70%)]"
       />
-      <div className="container-site relative pt-20 pb-10 lg:pt-28">
+      <div className="container-site relative pt-16 pb-[max(2.5rem,env(safe-area-inset-bottom))] sm:pt-20 lg:pt-28">
         <FooterSignature />
 
         <div className="mt-14 text-center lg:mt-16">
-          <p className="metal-text text-[clamp(1.75rem,6.4vw,5.75rem)] leading-none font-medium tracking-[0.12em]">
+          <p className="metal-text text-[clamp(1.2rem,7.2vw,5.75rem)] leading-none font-medium tracking-[0.06em] sm:tracking-[0.12em]">
             OMNISCIENT INDUSTRIES
           </p>
           <p className="mt-5 text-[1.0625rem] text-stone lg:text-lg">{site.tagline}</p>
@@ -73,7 +73,7 @@ export function SiteFooter() {
             <h2 className="system-label mb-5 text-gold">Legal</h2>
             <ul className="space-y-1">
               {legal.map((item) => (
-                <li key={item} className="flex min-h-10 items-center text-[0.95rem] text-stone-dim">
+                <li key={item} className="flex min-h-11 items-center text-[0.95rem] text-stone-dim">
                   {item}
                   <span className="sr-only"> (in preparation)</span>
                 </li>

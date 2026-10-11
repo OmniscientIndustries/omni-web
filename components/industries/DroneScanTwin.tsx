@@ -44,7 +44,7 @@ export function DroneScanTwin({ image, children }: { image: Img; children?: Reac
         width={image.width}
         height={image.height}
         sizes="100vw"
-        className="h-[62vh] min-h-[420px] w-full object-cover object-[62%_50%] lg:h-[78vh]"
+        className="h-[52svh] min-h-[240px] w-full object-cover object-[62%_50%] sm:h-[62vh] sm:min-h-[420px] lg:h-[78vh]"
       />
 
       {/* Animated survey layer */}
@@ -137,12 +137,12 @@ export function DroneScanTwin({ image, children }: { image: Img; children?: Reac
 
         {/* Telemetry panel */}
         <motion.div
-          className="absolute right-4 top-20 w-[208px] rounded-lg border border-gold/25 bg-ink-950/75 p-3 backdrop-blur-md sm:right-6 sm:top-24"
+          className="absolute top-16 right-3 w-[min(208px,calc(100%-1.5rem))] rounded-lg border border-gold/25 bg-ink-950/75 p-3 backdrop-blur-md sm:top-24 sm:right-6"
           initial={{ opacity: 0, y: -8 }}
           animate={active ? { opacity: 1, y: 0 } : { opacity: 0, y: -8 }}
           transition={{ duration: 0.6, ease: ease.brand, delay: reduce ? 0 : 0.3 }}
         >
-          <div className="flex items-center justify-between">
+          <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-1">
             <span className="flex items-center gap-1.5 font-mono text-[0.625rem] tracking-[0.18em] text-gold">
               <motion.span
                 className="size-1.5 rounded-full bg-gold"

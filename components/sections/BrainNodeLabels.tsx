@@ -64,13 +64,13 @@ export function BrainNodeLabels({ store }: { store: BrainStore }) {
                     activate(i);
                   }
                 }}
-                className={`pointer-events-auto absolute top-0 left-0 flex -translate-x-1/2 -translate-y-[22px] flex-col items-center whitespace-nowrap sm:min-h-11 sm:-translate-y-1/2 sm:gap-1 ${labelLeft ? "sm:right-0 sm:left-auto sm:translate-x-[22px] sm:flex-row-reverse" : "sm:-translate-x-[22px] sm:flex-row"}`}
+                className={`pointer-events-auto absolute top-0 left-0 flex -translate-x-1/2 -translate-y-[22px] flex-col items-center whitespace-nowrap lg:min-h-11 lg:-translate-y-1/2 lg:gap-1 ${labelLeft ? "lg:right-0 lg:left-auto lg:translate-x-[22px] lg:flex-row-reverse" : "lg:-translate-x-[22px] lg:flex-row"}`}
               >
                 <span aria-hidden className="flex size-11 items-center justify-center">
                   <span className={`size-2 rounded-full border border-gold-bright/80 transition-transform duration-[var(--duration-fast)] ${isActive ? "scale-150 bg-gold-bright" : "bg-transparent"}`} />
                 </span>
                 <span
-                  className={`-mt-3.5 pb-1 font-mono text-[0.5625rem] tracking-[0.14em] uppercase transition-colors duration-[var(--duration-fast)] sm:mt-0 sm:pb-0 sm:text-[0.6875rem] sm:tracking-[0.16em] ${isActive ? "text-gold-bright" : node.tier === "launch" ? "text-bone/90" : "text-stone"}`}
+                  className={`-mt-3 pb-1 font-mono text-[0.625rem] tracking-[0.1em] uppercase transition-colors duration-[var(--duration-fast)] lg:mt-0 lg:pb-0 lg:text-[0.6875rem] lg:tracking-[0.16em] ${isActive ? "text-gold-bright" : node.tier === "launch" ? "text-bone/90" : "text-stone"}`}
                 >
                   {node.name}
                 </span>

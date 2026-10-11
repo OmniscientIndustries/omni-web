@@ -77,23 +77,32 @@ function Director({ store, reduced, onReady, rig }: Pick<CompanyBrainCanvasProps
     const aspect = width / height;
     const vh = 2 * distance * Math.tan((camera.fov * TO_RAD) / 2);
     const vw = vh * aspect;
-    // Narrower screens tip the ring towards the camera so labels spread vertically.
+    // Desktop keeps the core to the right of the headline. Below the lg
+    // breakpoint the canvas is a centred stage, so the ring stays in frame
+    // with margin for the industry labels.
     let baseTilt = 0;
-    if (aspect >= 1.6) {
-      group.position.set(vw * 0.225, -vh * 0.02, 0);
-      group.scale.setScalar(0.76);
-    } else if (aspect >= 1.2) {
-      group.position.set(vw * 0.285, -vh * 0.01, 0);
-      group.scale.setScalar(0.54);
-      baseTilt = 0.18;
-    } else if (aspect >= 0.85) {
-      group.position.set(vw * 0.1, vh * 0.12, 0);
-      group.scale.setScalar(0.72);
-      baseTilt = 0.2;
+    if (width >= 1024) {
+      if (aspect >= 1.6) {
+        group.position.set(vw * 0.225, -vh * 0.02, 0);
+        group.scale.setScalar(0.76);
+      } else if (aspect >= 1.2) {
+        group.position.set(vw * 0.285, -vh * 0.01, 0);
+        group.scale.setScalar(0.54);
+        baseTilt = 0.18;
+      } else {
+        group.position.set(vw * 0.16, 0, 0);
+        group.scale.setScalar(0.62);
+        baseTilt = 0.12;
+      }
+    } else if (width >= 768 && height >= 520) {
+      group.position.set(0, vh * 0.02, 0);
+      group.scale.setScalar(Math.min(0.68, (vw * 0.26) / 3.3, (vh * 0.34) / 3.3));
+      baseTilt = 0.34;
     } else {
-      group.position.set(0, vh * (aspect < 0.6 ? 0.27 : 0.19), 0);
-      group.scale.setScalar(Math.min(0.78, (vw * 0.27) / 3.3));
-      baseTilt = 0.42;
+      group.position.set(0, 0, 0);
+      const wideStage = width > height * 1.15;
+      group.scale.setScalar(Math.min(0.56, (vw * (wideStage ? 0.2 : 0.22)) / 3.3, (vh * 0.32) / 3.3));
+      baseTilt = wideStage || height < 280 ? 0.22 : 0.46;
     }
 
     // Cursor parallax: a few degrees at most.
@@ -167,7 +176,7 @@ export default function CompanyBrainCanvas(props: CompanyBrainCanvasProps) {
   const { quality, reduced, running } = props;
   return (
     <Canvas
-      dpr={[1, quality === "high" ? 1.5 : 1.25]}
+      dpr={[1, quality === "high" ? 1.5 : 1.15]}
       frameloop={reduced ? "demand" : running ? "always" : "never"}
       camera={{ position: [0, 0.55, 15], fov: 30, near: 0.1, far: 80 }}
       gl={{ antialias: true, alpha: true, powerPreference: "high-performance", stencil: false }}
