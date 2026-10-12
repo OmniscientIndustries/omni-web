@@ -41,6 +41,9 @@ yarn-error.log*
 next-env.d.ts
 !.env.example
 
+# Editorial source document — not website content
+/public/*.docx
+
 # local QA artefacts
 /qa-output
 /test-results

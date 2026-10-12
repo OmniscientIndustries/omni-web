@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { isPublicArticle, news, publishedNews } from "../content/news";
 
 const isMobile = (name: string) => name === "mobile";
 
@@ -99,12 +100,120 @@ test.describe("public security", () => {
   });
 });
 
+const removedTitles = [
+  "Why physical operations are data-rich and decision-poor",
+  "Designing worker protection around live operational context",
+  "Consent, privacy and human review in community hate reporting",
+  "From drone flight to digital twin: inspecting infrastructure in context",
+  "Edge AI for environments where connectivity cannot be assumed",
+];
+
+test.describe("news source", () => {
+  test("holds exactly seven supplied articles and keeps the pilot unpublished", () => {
+    expect(news).toHaveLength(7);
+    expect(new Set(news.map((article) => article.slug)).size).toBe(7);
+    expect(new Set(news.map((article) => article.title)).size).toBe(7);
+
+    for (const article of news) {
+      expect(article.body).toHaveLength(3);
+      expect(article.publicationLabel).toBe("October 2026");
+      expect(article.image.width).toBeGreaterThan(0);
+      expect(article.image.height).toBeGreaterThan(0);
+      expect(article.image.alt.length).toBeGreaterThan(12);
+      expect(article.image.caption.length).toBeGreaterThan(12);
+      expect(article.image.src.startsWith("/images/news/")).toBe(true);
+    }
+
+    const packed = JSON.stringify(news);
+    expect(packed).not.toMatch(/lorem ipsum/i);
+    expect(packed).not.toContain("Atreides");
+    expect(packed).not.toContain("Vector Rail");
+    expect(packed).not.toContain("RedZone");
+    expect(packed).not.toContain("Before publication");
+    expect(packed).not.toMatch(/SafeZone(?! Rail)/);
+    expect(packed).toContain("SafeZone Rail");
+    expect(packed).toContain("the wider Omniscient product direction");
+    expect(packed).toContain("safe work limits");
+    expect(packed).toContain("£1,410");
+    expect(packed).toContain("£1,175 plus VAT");
+    for (const title of removedTitles) expect(packed).not.toContain(title);
+
+    const pilot = news.find((article) => article.slug === "three-rail-pilot-engagements-underway");
+    expect(pilot?.status).toBe("draft");
+    expect(pilot?.partnerNamingApproved).toBe(false);
+    expect(pilot ? isPublicArticle(pilot) : true).toBe(false);
+    expect(publishedNews.map((article) => article.slug)).not.toContain(pilot?.slug);
+
+    const trial = news.find((article) => article.slug === "safezone-rail-first-on-track-functional-trial");
+    expect(trial?.factualReviewRequired).toBe(true);
+    expect(trial?.body[0].text).toContain("Sighthill East Junction");
+    expect(trial?.body[0].text).toContain("22 to 23 August 2026");
+  });
+});
+
 test.describe("news", () => {
-  test("draft articles are labelled and not indexed", async ({ page }) => {
-    await page.goto("/news/data-rich-decision-poor");
-    await expect(page.getByText("Draft perspective").first()).toBeVisible();
-    await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
-    await expect(page.locator('script[type="application/ld+json"]', { hasText: '"Article"' })).toHaveCount(0);
+  test("published articles are listed and the unapproved pilot is absent", async ({ page }) => {
+    await page.goto("/news");
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("News and insights.");
+    const listing = (await page.locator("main").innerText()).replace(/\s+/g, " ");
+    for (const article of publishedNews) expect(listing).toContain(article.title);
+    expect(listing.toLowerCase()).toContain("october 2026");
+    expect(listing).not.toContain("From Development to Deployment");
+    expect(listing).not.toContain("VolkerRail");
+    expect(listing).not.toContain("Before publication");
+    expect(listing).not.toMatch(/SafeZone(?! Rail)/);
+
+    await page.goto("/");
+    const home = await page.locator("#news").innerText();
+    expect(home).toContain(publishedNews[0].title);
+    expect(home).toContain(publishedNews[1].title);
+    expect(home).toContain(publishedNews[2].title);
+    expect(home).not.toContain("VolkerRail");
+    expect(home).not.toContain("NEOS Networks");
+    for (const title of removedTitles) expect(home).not.toContain(title);
+  });
+
+  test("the pilot article is not a public route and is omitted from the sitemap", async ({ page }) => {
+    const response = await page.goto("/news/three-rail-pilot-engagements-underway");
+    expect(response?.status()).toBe(404);
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("This signal could not be found.");
+
+    const sitemap = await page.request.get("/sitemap.xml");
+    const xml = await sitemap.text();
+    expect(xml).toContain("/news/introducing-omniscient-industries");
+    expect(xml).not.toContain("three-rail-pilot-engagements-underway");
+    expect(xml).not.toContain("data-rich-decision-poor");
+  });
+
+  test("an article page links back and publishes unique article metadata", async ({ page }) => {
+    await page.goto("/news/safezone-rail-first-on-track-functional-trial");
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("SafeZone Rail Completes Its First On Track Functional Trial");
+    await expect(page.getByText("October 2026").first()).toBeVisible();
+    await expect(page.getByText("1 October 2026")).toHaveCount(0);
+    await expect(page.getByText("factualReviewRequired")).toHaveCount(0);
+    const text = await page.locator("main").innerText();
+    expect(text).toContain("initial functional proof");
+    expect(text).toContain("not a survey-grade accuracy assessment");
+    expect(text).toContain("Sighthill West Junction");
+    expect(text).not.toMatch(/SafeZone(?! Rail)/);
+
+    const scripts = await page.locator('script[type="application/ld+json"]').evaluateAll((nodes) =>
+      nodes.map((node) => node.textContent ?? ""),
+    );
+    const data = scripts.map((script) => JSON.parse(script)).find((item) => item["@type"] === "NewsArticle");
+    expect(data).toBeTruthy();
+    expect(data.datePublished).toBe("2026-10");
+    expect(data.publisher.name).toBe("Omniscient Industries");
+    expect(data.author).toBeUndefined();
+
+    const image = page.locator("main img").first();
+    await expect(image).toHaveAttribute("alt", /overnight track trial/);
+    await expect(image).toBeVisible();
+    const box = await image.boundingBox();
+    expect(box && box.height).toBeGreaterThan(80);
+
+    await page.getByRole("link", { name: "News and insights" }).click();
+    await expect(page).toHaveURL("/news");
   });
 });
 

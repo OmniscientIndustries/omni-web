@@ -39,7 +39,7 @@ All copy lives in typed modules under `content/`:
 
 - `site.ts` — name, tagline, navigation, founders
 - `industries.ts`, `rail.ts`, `sarva.ts`, `company.ts`, `contact.ts`
-- `news.ts` — articles. `status: "draft"` entries are labelled “Draft perspective”, noindexed and excluded from Article structured data and the sitemap. Change to `"published"` once approved.
+- `news.ts` — the seven October 2026 articles. Only `publishedNews` is routed, listed, or added to the sitemap and NewsArticle structured data. Article 02 stays unpublished until `partnerNamingApproved` is set to `true` in a reviewed commit. Do not commit the source `.docx`.
 
 ## Brand assets and imagery
 
