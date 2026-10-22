@@ -1,27 +1,8 @@
-/*
- * TEMPORARY BRAND MARK
- * No approved Omniscient logo asset was supplied. This is a minimal abstract
- * radial "computational sun" placeholder. When the official asset is available,
- * place it at /public/brand/omniscient-mark.svg and replace the body of this
- * component with a single <img>/<Image>. Every usage on the site goes through
- * this component and <Wordmark>, so the swap is a one-file change.
+/**
+ * Official Omniscient emblem, isolated from the approved 19 October 2026
+ * brand board. This is a cropped photograph of that artwork, not a redraw.
+ * A clean vector original is still needed for a sharper mark at large sizes.
  */
-
-const RAYS = 32;
-
-function ray(i: number) {
-  const angle = (i / RAYS) * Math.PI * 2;
-  const long = i % 2 === 0;
-  const inner = 11.5;
-  const outer = long ? 21.5 : 17.5;
-  const spread = long ? 0.045 : 0.035;
-  const p = (r: number, a: number) =>
-    `${(24 + Math.cos(a) * r).toFixed(2)},${(24 + Math.sin(a) * r).toFixed(2)}`;
-  return `M${p(inner, angle - spread)} L${p(outer, angle)} L${p(inner, angle + spread)} Z`;
-}
-
-const rayPath = Array.from({ length: RAYS }, (_, i) => ray(i)).join(" ");
-
 export function OmniscientMark({
   className,
   title,
@@ -31,30 +12,16 @@ export function OmniscientMark({
 }) {
   const decorative = !title;
   return (
-    <svg
-      viewBox="0 0 48 48"
+    // Native img: the asset is a small local PNG and must keep the exact pixels.
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src="/brand/omniscient-emblem.png"
+      alt={decorative ? "" : title}
+      width={322}
+      height={280}
       className={className}
-      role={decorative ? undefined : "img"}
       aria-hidden={decorative ? true : undefined}
-      aria-label={title}
-      focusable="false"
-    >
-      <defs>
-        <linearGradient id="om-gold" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#F6E3A1" />
-          <stop offset="0.5" stopColor="#D3AF37" />
-          <stop offset="1" stopColor="#8D7530" />
-        </linearGradient>
-        <radialGradient id="om-core" cx="0.42" cy="0.38" r="0.7">
-          <stop offset="0" stopColor="#2A2620" />
-          <stop offset="1" stopColor="#050505" />
-        </radialGradient>
-      </defs>
-      <path d={rayPath} fill="url(#om-gold)" />
-      <circle cx="24" cy="24" r="9.6" fill="none" stroke="url(#om-gold)" strokeWidth="1.3" />
-      <circle cx="24" cy="24" r="7.4" fill="url(#om-core)" />
-      <circle cx="24" cy="24" r="2.1" fill="#D3AF37" opacity="0.9" />
-    </svg>
+    />
   );
 }
 

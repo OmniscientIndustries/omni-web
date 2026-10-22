@@ -36,19 +36,19 @@ export function SiteHeader() {
   return (
     <header
       ref={ref}
-      className="animate-drop fixed inset-x-0 top-0 z-50 border-b border-[rgb(211_175_55/calc(var(--hp,0)*0.16))] bg-[rgb(5_5_5/calc(var(--hp,0)*0.82))] pt-[env(safe-area-inset-top,0px)] backdrop-blur-[calc(var(--hp,0)*16px)] [--hp:0] lg:pt-0"
+      className="animate-drop fixed inset-x-0 top-0 z-50 border-b border-[rgb(183_151_104/calc(var(--hp,0)*0.16))] bg-[rgb(5_5_5/calc(var(--hp,0)*0.82))] pt-[env(safe-area-inset-top,0px)] backdrop-blur-[calc(var(--hp,0)*16px)] [--hp:0] lg:pt-0"
     >
       <div className="container-site flex h-[var(--header-bar)] items-center justify-between gap-3">
         <Link
           href="/"
           className="-mx-2 flex min-h-11 items-center px-2"
-          aria-label="Omniscient Industries — home"
+          aria-label="Omniscient Industries Limited — home"
         >
           <Wordmark responsive />
         </Link>
 
         <nav aria-label="Primary" className="hidden lg:block">
-          <ul className="flex items-center gap-[clamp(38px,3vw,64px)]">
+          <ul className="flex items-center gap-[clamp(14px,1.2vw,28px)]">
             {primaryNavigation.map((item) => {
               const active = isActive(pathname, item.href);
               if (item.emphasis) {

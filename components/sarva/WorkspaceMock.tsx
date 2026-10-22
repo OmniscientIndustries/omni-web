@@ -42,11 +42,11 @@ export function WorkspaceMock() {
           <Label>Classification</Label>
           <div className="mt-3 flex h-2 overflow-hidden rounded">
             <span className="w-[38%] bg-gold" />
-            <span className="w-[62%] bg-[repeating-linear-gradient(135deg,#8d7530_0_3px,#3a3014_3px_6px)]" />
+            <span className="w-[62%] bg-[repeating-linear-gradient(135deg,#6e5430_0_3px,#3a3014_3px_6px)]" />
           </div>
           <ul className="mt-3 space-y-1.5 text-[0.6875rem] text-stone">
             <li className="flex items-center gap-2"><span className="size-2 bg-gold" /> Possible hate crime</li>
-            <li className="flex items-center gap-2"><span className="size-2 bg-[repeating-linear-gradient(135deg,#8d7530_0_2px,#3a3014_2px_4px)]" /> Hate incident</li>
+            <li className="flex items-center gap-2"><span className="size-2 bg-[repeating-linear-gradient(135deg,#6e5430_0_2px,#3a3014_2px_4px)]" /> Hate incident</li>
           </ul>
         </div>
 
@@ -102,7 +102,7 @@ export function WorkspaceMock() {
           </div>
           <div className="mt-3 flex gap-1.5">
             {[0.12, 0.3, 0.55, 0.85, 0.5, 0.25, 0.4, 0.18, 0.62, 0.34, 0.15, 0.08].map((v, i) => (
-              <span key={i} className="h-7 flex-1 [clip-path:polygon(25%_0,75%_0,100%_50%,75%_100%,25%_100%,0_50%)]" style={{ background: `rgb(211 175 55 / ${v})` }} />
+              <span key={i} className="h-7 flex-1 [clip-path:polygon(25%_0,75%_0,100%_50%,75%_100%,25%_100%,0_50%)]" style={{ background: `rgb(183 151 104 / ${v})` }} />
             ))}
           </div>
         </div>

@@ -16,7 +16,7 @@ export function FragmentsVisual({ fragments }: { fragments: readonly string[] })
               y1={y * 600}
               x2="300"
               y2="300"
-              stroke="#d3af37"
+              stroke="#b79768"
               strokeOpacity="0.35"
               strokeDasharray={i % 2 ? "3 6" : undefined}
               vectorEffect="non-scaling-stroke"
@@ -34,7 +34,7 @@ export function FragmentsVisual({ fragments }: { fragments: readonly string[] })
               {label}
             </li>
           ) : (
-            <li key="core" aria-hidden className="flex aspect-square items-center justify-center rounded-xl border border-line-strong bg-[radial-gradient(circle,rgb(211_175_55/0.16),transparent_70%)]">
+            <li key="core" aria-hidden className="flex aspect-square items-center justify-center rounded-xl border border-line-strong bg-[radial-gradient(circle,rgb(183_151_104/0.16),transparent_70%)]">
               <OmniscientMark className="size-1/2" />
             </li>
           ),
