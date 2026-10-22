@@ -13,8 +13,8 @@ function Sparkline() {
   const d = trend.map((v, i) => `${i === 0 ? "M" : "L"}${(i / (trend.length - 1)) * 200} ${48 - (v / max) * 40}`).join(" ");
   return (
     <svg viewBox="0 0 200 52" className="h-12 w-full" aria-hidden>
-      <path d={`${d} L200 52 L0 52Z`} fill="#d3af37" fillOpacity="0.08" />
-      <path d={d} fill="none" stroke="#e2c25a" strokeWidth="1.5" />
+      <path d={`${d} L200 52 L0 52Z`} fill="#b79768" fillOpacity="0.08" />
+      <path d={d} fill="none" stroke="#d7c4a4" strokeWidth="1.5" />
     </svg>
   );
 }

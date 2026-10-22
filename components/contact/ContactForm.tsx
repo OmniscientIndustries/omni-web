@@ -212,7 +212,7 @@ export function ContactForm({ initialInterest }: { initialInterest?: ContactCate
             onChange={(e) => update("consent", e.target.checked)}
             aria-invalid={!!errors.consent}
             aria-describedby={describe("consent")}
-            className="mt-1 size-5 shrink-0 cursor-pointer accent-[#d3af37]"
+            className="mt-1 size-5 shrink-0 cursor-pointer accent-[#b79768]"
           />
           <span className="text-[0.9375rem] leading-relaxed text-stone">
             I agree that Omniscient Industries may use these details to respond to my enquiry.

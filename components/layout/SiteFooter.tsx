@@ -6,10 +6,16 @@ import { FooterSignature } from "./FooterSignature";
 const company = [
   { label: "Mission", href: "/mission" },
   { label: "About", href: "/about" },
+  { label: "SafeZone Rail", href: "/products/safezone-rail" },
   { label: "Contact", href: "/contact" },
 ];
 
-// Placeholders until approved legal documents exist; intentionally not links.
+const productLegal = [
+  { label: "SafeZone Rail support", href: "/support/safezone-rail" },
+  { label: "SafeZone Rail privacy", href: "/privacy/safezone-rail" },
+];
+
+// Company-wide legal documents are not published yet.
 const legal = ["Privacy notice", "Terms of use", "Cookie policy"];
 
 function FooterLinks({ title, links }: { title: string; links: { label: string; href: string }[] }) {
@@ -38,7 +44,7 @@ export function SiteFooter() {
     <footer className="relative overflow-hidden border-t border-line bg-ink-950">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-[70%] bg-[radial-gradient(60%_80%_at_50%_100%,rgb(211_175_55/0.08),transparent_70%)]"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[70%] bg-[radial-gradient(60%_80%_at_50%_100%,rgb(183_151_104/0.08),transparent_70%)]"
       />
       <div className="container-site relative pt-16 pb-[max(2.5rem,env(safe-area-inset-bottom))] sm:pt-20 lg:pt-28">
         <FooterSignature />
@@ -72,6 +78,16 @@ export function SiteFooter() {
           <div className="lg:col-span-2">
             <h2 className="system-label mb-5 text-gold">Legal</h2>
             <ul className="space-y-1">
+              {productLegal.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="inline-flex min-h-11 items-center text-[0.95rem] text-stone transition-colors duration-[var(--duration-fast)] hover:text-bone"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
               {legal.map((item) => (
                 <li key={item} className="flex min-h-11 items-center text-[0.95rem] text-stone-dim">
                   {item}
@@ -86,7 +102,7 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-14 flex flex-col gap-3 border-t border-line pt-6 text-[0.8125rem] text-stone-dim sm:flex-row sm:items-center sm:justify-between">
-          <p>© {year} Omniscient Industries. All rights reserved.</p>
+          <p>© {year} Omniscient Industries Limited. All rights reserved.</p>
           <p>Intelligence for the physical world.</p>
         </div>
       </div>

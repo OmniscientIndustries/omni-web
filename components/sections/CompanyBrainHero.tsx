@@ -116,11 +116,11 @@ export function CompanyBrainHero() {
   );
 
   return (
-    <section ref={section} aria-labelledby="hero-title" className="relative">
+    <section ref={section} aria-labelledby="brain-title" className="relative">
       <div ref={pin} className="relative isolate w-full bg-ink-950 landscape:max-lg:grid landscape:max-lg:grid-cols-[minmax(0,46%)_minmax(0,1fr)] landscape:max-lg:items-center landscape:max-lg:pt-[var(--header-h)] lg:block lg:h-svh lg:min-h-[720px] lg:overflow-hidden lg:pt-0">
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 hidden bg-[radial-gradient(50%_60%_at_68%_48%,rgb(211_175_55/0.07),transparent_70%)] lg:block"
+          className="pointer-events-none absolute inset-0 hidden bg-[radial-gradient(50%_60%_at_68%_48%,rgb(183_151_104/0.07),transparent_70%)] lg:block"
         />
 
         <div
@@ -130,7 +130,7 @@ export function CompanyBrainHero() {
         >
           <div
             aria-hidden
-            className="absolute inset-0 bg-[radial-gradient(70%_65%_at_50%_48%,rgb(211_175_55/0.08),transparent_72%)] lg:hidden"
+            className="absolute inset-0 bg-[radial-gradient(70%_65%_at_50%_48%,rgb(183_151_104/0.08),transparent_72%)] lg:hidden"
           />
           {showCanvas ? (
             <>
@@ -169,12 +169,12 @@ export function CompanyBrainHero() {
                 <span aria-hidden className="h-px w-8 bg-gold/70" />
                 Omniscient Industries
               </p>
-              <h1
-                id="hero-title"
+              <h2
+                id="brain-title"
                 className="text-display animate-rise text-[clamp(1.85rem,8vw,2.35rem)] text-bone [--delay:1050ms] sm:text-[clamp(2.15rem,5vw,2.75rem)] landscape:max-lg:text-[clamp(1.55rem,3vw,2rem)] lg:text-[clamp(2.6rem,6.2vw,5.4rem)] min-[1800px]:text-[4.6vw]"
               >
-                Intelligence for the physical world.
-              </h1>
+                A living picture of the operation.
+              </h2>
               <p className="animate-rise mt-4 max-w-[34rem] text-[0.9375rem] leading-relaxed text-stone [--delay:1250ms] sm:mt-6 sm:text-[1.0625rem] lg:mt-8 lg:max-w-[30rem] xl:max-w-[34rem] min-[1800px]:max-w-[28vw] min-[1800px]:text-[1.1875rem]">
                 Omniscient connects fragmented systems, operational data and real-world environments
                 into a living Company Brain—helping complex organisations understand what is
@@ -217,7 +217,7 @@ function BrainLoader() {
       className="pointer-events-none absolute inset-0 flex items-center justify-center transition-opacity duration-700 group-data-[ready=true]/stage:opacity-0 lg:inset-y-0 lg:left-[38%] lg:justify-start"
     >
       <div className="relative flex flex-col items-center gap-5">
-        <span className="relative block size-2 rounded-full bg-gold-bright shadow-[0_0_24px_6px_rgb(211_175_55/0.45)]">
+        <span className="relative block size-2 rounded-full bg-gold-bright shadow-[0_0_24px_6px_rgb(183_151_104/0.45)]">
           <span className="absolute inset-0 animate-ping rounded-full bg-gold/60 motion-reduce:hidden" />
         </span>
         <span className="font-mono text-[0.625rem] tracking-[0.22em] text-stone-dim uppercase">Initialising</span>

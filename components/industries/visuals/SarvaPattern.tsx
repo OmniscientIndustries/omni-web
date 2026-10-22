@@ -56,13 +56,13 @@ export function SarvaPattern({ uid = "sarva", revealed = false }: { uid?: string
             height={b.h}
             rx="3"
             fill={b.tone > 0.7 ? "#1c1912" : "#14120e"}
-            stroke="#d3af37"
+            stroke="#b79768"
             strokeOpacity={0.12 + b.tone * 0.12}
           />
         ))}
-        <rect x="146" y="126" width="88" height="88" rx="6" fill="#10120c" stroke="#d3af37" strokeOpacity="0.14" />
+        <rect x="146" y="126" width="88" height="88" rx="6" fill="#10120c" stroke="#b79768" strokeOpacity="0.14" />
         {/* Arterial streets */}
-        <g stroke="#d3af37" strokeOpacity="0.16" strokeWidth="1.4">
+        <g stroke="#b79768" strokeOpacity="0.16" strokeWidth="1.4">
           <line x1="-100" y1="96" x2="560" y2="96" />
           <line x1="-100" y1="234" x2="560" y2="234" />
           <line x1="128" y1="-60" x2="128" y2="460" />
@@ -75,9 +75,9 @@ export function SarvaPattern({ uid = "sarva", revealed = false }: { uid?: string
             <polygon
               key={`${c.q}-${c.r}`}
               points={hex(c.x, c.y, R - 2)}
-              fill="#d3af37"
+              fill="#b79768"
               fillOpacity={c.v}
-              stroke="#f0cf68"
+              stroke="#d7c4a4"
               strokeOpacity={0.35}
               strokeWidth="1"
             />
@@ -88,15 +88,15 @@ export function SarvaPattern({ uid = "sarva", revealed = false }: { uid?: string
         {pulses.slice(1).map((p) => (
           <g key={`${p.x}-${p.y}`} className={reveal} style={{ ["--delay" as string]: `${p.d}ms` }}>
             <circle cx={p.x} cy={p.y} r="16" fill={`url(#${uid}-glow)`} />
-            <circle cx={p.x} cy={p.y} r="2.6" fill="#f0cf68" />
-            <circle className="pulse-ring" style={{ ["--delay" as string]: `${p.d}ms` }} cx={p.x} cy={p.y} r="12" fill="none" stroke="#f0cf68" strokeWidth="1.2" />
+            <circle cx={p.x} cy={p.y} r="2.6" fill="#d7c4a4" />
+            <circle className="pulse-ring" style={{ ["--delay" as string]: `${p.d}ms` }} cx={p.x} cy={p.y} r="12" fill="none" stroke="#d7c4a4" strokeWidth="1.2" />
           </g>
         ))}
 
         {/* One soft report pulse at rest. */}
         <circle cx={pulses[0].x} cy={pulses[0].y} r="26" fill={`url(#${uid}-glow)`} opacity="0.9" />
         <circle cx={pulses[0].x} cy={pulses[0].y} r="3.2" fill="#fff1c4" />
-        <circle className="pulse-ring" cx={pulses[0].x} cy={pulses[0].y} r="14" fill="none" stroke="#f0cf68" strokeWidth="1.2" />
+        <circle className="pulse-ring" cx={pulses[0].x} cy={pulses[0].y} r="14" fill="none" stroke="#d7c4a4" strokeWidth="1.2" />
       </g>
       <rect width="800" height="600" fill={`url(#${uid}-fade)`} />
     </VisualFrame>

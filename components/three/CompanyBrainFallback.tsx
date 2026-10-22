@@ -44,27 +44,27 @@ export function CompanyBrainFallback({ interactive = true }: { interactive?: boo
               <stop offset="1" stopColor="#050505" />
             </radialGradient>
             <radialGradient id="fb-glow">
-              <stop offset="0" stopColor="#d3af37" stopOpacity="0.38" />
-              <stop offset="0.45" stopColor="#d3af37" stopOpacity="0.08" />
-              <stop offset="1" stopColor="#d3af37" stopOpacity="0" />
+              <stop offset="0" stopColor="#b79768" stopOpacity="0.38" />
+              <stop offset="0.45" stopColor="#b79768" stopOpacity="0.08" />
+              <stop offset="1" stopColor="#b79768" stopOpacity="0" />
             </radialGradient>
             <linearGradient id="fb-gold" x1="0" y1="0" x2="1" y2="1">
               <stop offset="0" stopColor="#f6e3a1" />
-              <stop offset="0.5" stopColor="#d3af37" />
-              <stop offset="1" stopColor="#8d7530" />
+              <stop offset="0.5" stopColor="#b79768" />
+              <stop offset="1" stopColor="#6e5430" />
             </linearGradient>
           </defs>
 
           <circle cx={C} cy={C} r="340" fill="url(#fb-glow)" />
 
-          <g fill="none" stroke="#d3af37">
+          <g fill="none" stroke="#b79768">
             <ellipse cx={C} cy={C} rx={R} ry={R * SQUASH} strokeOpacity="0.28" strokeWidth="1" />
             <ellipse cx={C} cy={C} rx="205" ry={205 * SQUASH} strokeOpacity="0.4" strokeWidth="1" />
             <ellipse cx={C} cy={C} rx="142" ry={142 * SQUASH} strokeOpacity="0.55" strokeWidth="1.2" strokeDasharray="2 7" />
             <ellipse cx={C} cy={C} rx="98" ry={98 * SQUASH} strokeOpacity="0.8" strokeWidth="1.4" transform={`rotate(-14 ${C} ${C})`} />
           </g>
 
-          <g fill="none" stroke="#d3af37" strokeWidth="1.1">
+          <g fill="none" stroke="#b79768" strokeWidth="1.1">
             {nodes.map((n) => (
               <path key={n.slug} d={curve(n.x, n.y)} strokeOpacity="0.5" />
             ))}
@@ -76,9 +76,9 @@ export function CompanyBrainFallback({ interactive = true }: { interactive?: boo
 
           {nodes.map((n) => (
             <g key={n.slug}>
-              <circle cx={n.x} cy={n.y} r="22" fill="#d3af37" opacity="0.12" />
+              <circle cx={n.x} cy={n.y} r="22" fill="#b79768" opacity="0.12" />
               <circle cx={n.x} cy={n.y} r="5.5" fill="url(#fb-gold)" />
-              <ellipse cx={n.x} cy={n.y} rx="16" ry={16 * SQUASH * 1.6} fill="none" stroke="#d3af37" strokeOpacity="0.6" />
+              <ellipse cx={n.x} cy={n.y} rx="16" ry={16 * SQUASH * 1.6} fill="none" stroke="#b79768" strokeOpacity="0.6" />
             </g>
           ))}
         </svg>

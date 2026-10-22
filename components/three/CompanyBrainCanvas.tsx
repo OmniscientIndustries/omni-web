@@ -153,13 +153,13 @@ function Scene(props: CompanyBrainCanvasProps) {
     <>
       <Director store={store} reduced={props.reduced} onReady={props.onReady} rig={rig} />
       <ambientLight intensity={0.12} />
-      <directionalLight position={[4, 6, 5]} intensity={1.4} color="#ffe2a0" />
-      <directionalLight position={[-6, -2, -4]} intensity={0.5} color="#8d7530" />
-      <pointLight position={[0, 0, 0]} intensity={5} distance={5} decay={2} color="#d3af37" />
+      <directionalLight position={[4, 6, 5]} intensity={1.4} color="#efe4d2" />
+      <directionalLight position={[-6, -2, -4]} intensity={0.5} color="#6e5430" />
+      <pointLight position={[0, 0, 0]} intensity={5} distance={5} decay={2} color="#b79768" />
       <Environment resolution={quality === "high" ? 128 : 64} frames={1}>
-        <Lightformer form="rect" intensity={2.2} color="#f3d27a" position={[3, 4, 5]} scale={[6, 2, 1]} />
-        <Lightformer form="ring" intensity={1.4} color="#fff4dc" position={[-5, 1, 3]} scale={3} />
-        <Lightformer form="rect" intensity={0.5} color="#8d7530" position={[0, -5, 2]} rotation-x={Math.PI / 2} scale={[10, 2, 1]} />
+        <Lightformer form="rect" intensity={2.2} color="#d7c4a4" position={[3, 4, 5]} scale={[6, 2, 1]} />
+        <Lightformer form="ring" intensity={1.4} color="#efe4d2" position={[-5, 1, 3]} scale={3} />
+        <Lightformer form="rect" intensity={0.5} color="#6e5430" position={[0, -5, 2]} rotation-x={Math.PI / 2} scale={[10, 2, 1]} />
       </Environment>
       <group ref={rig}>
         <AmbientSignals store={store} quality={quality} />

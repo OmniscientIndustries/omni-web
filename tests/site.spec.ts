@@ -31,6 +31,7 @@ test.describe("navigation", () => {
     const nav = page.getByRole("navigation", { name: "Primary" });
     for (const [label, path] of [
       ["Industries", "/industries"],
+      ["SafeZone Rail", "/products/safezone-rail"],
       ["Mission", "/mission"],
       ["About", "/about"],
       ["Contact Us", "/contact"],
@@ -203,7 +204,7 @@ test.describe("news", () => {
     const data = scripts.map((script) => JSON.parse(script)).find((item) => item["@type"] === "NewsArticle");
     expect(data).toBeTruthy();
     expect(data.datePublished).toBe("2026-10");
-    expect(data.publisher.name).toBe("Omniscient Industries");
+    expect(data.publisher.name).toBe("Omniscient Industries Limited");
     expect(data.author).toBeUndefined();
 
     const image = page.locator("main img").first();
@@ -258,5 +259,31 @@ test.describe("reduced motion", () => {
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
     const opacity = await page.getByRole("heading", { level: 1 }).evaluate((el) => getComputedStyle(el).opacity);
     expect(Number(opacity)).toBeGreaterThan(0.95);
+  });
+});
+
+test.describe("SafeZone Rail public pages", () => {
+  test("support and privacy pages are reachable without an account", async ({ page }) => {
+    await page.goto("/support/safezone-rail");
+    await expect(page.getByRole("heading", { level: 1, name: "SafeZone Rail Support" })).toBeVisible();
+    await expect(page.getByText("Apple Critical Alerts is not enabled")).toBeVisible();
+    await expect(page.getByRole("link", { name: "info@omniscient-industries.com" }).first()).toHaveAttribute(
+      "href",
+      "mailto:info@omniscient-industries.com",
+    );
+    await page.getByRole("link", { name: "SafeZone Rail privacy policy" }).click();
+    await expect(page).toHaveURL("/privacy/safezone-rail");
+    await expect(page.getByRole("heading", { level: 1, name: "SafeZone Rail privacy" })).toBeVisible();
+    await expect(page.getByText("Needs confirmation").first()).toBeVisible();
+  });
+
+  test("the product page states the app is supplementary", async ({ page }) => {
+    await page.goto("/products/safezone-rail");
+    await expect(page.getByRole("heading", { level: 1, name: "SafeZone Rail" })).toBeVisible();
+    await expect(page.getByText("does not detect trains")).toBeVisible();
+    await expect(page.locator("#main").getByRole("link", { name: "SafeZone Rail support" })).toHaveAttribute(
+      "href",
+      "/support/safezone-rail",
+    );
   });
 });

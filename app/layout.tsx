@@ -22,8 +22,8 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Omniscient Industries | Intelligence for the Physical World",
-    template: "%s | Omniscient Industries",
+    default: "Omniscient Industries Limited | Intelligence for the Physical World",
+    template: "%s | Omniscient Industries Limited",
   },
   description: site.description,
   applicationName: site.name,
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#050505",
+  themeColor: "#090601",
   colorScheme: "dark",
 };
 

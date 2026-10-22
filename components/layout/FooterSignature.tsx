@@ -19,12 +19,12 @@ export function FooterSignature() {
       <svg viewBox="0 0 1000 2" preserveAspectRatio="none" className="absolute inset-x-0 top-1/2 h-px w-full -translate-y-1/2 overflow-visible">
         <defs>
           <linearGradient id="footer-line-l" gradientUnits="userSpaceOnUse" x1="0" y1="1" x2="468" y2="1">
-            <stop offset="0" stopColor="#D3AF37" stopOpacity="0" />
-            <stop offset="1" stopColor="#D3AF37" stopOpacity="0.8" />
+            <stop offset="0" stopColor="#b79768" stopOpacity="0" />
+            <stop offset="1" stopColor="#b79768" stopOpacity="0.8" />
           </linearGradient>
           <linearGradient id="footer-line-r" gradientUnits="userSpaceOnUse" x1="1000" y1="1" x2="532" y2="1">
-            <stop offset="0" stopColor="#D3AF37" stopOpacity="0" />
-            <stop offset="1" stopColor="#D3AF37" stopOpacity="0.8" />
+            <stop offset="0" stopColor="#b79768" stopOpacity="0" />
+            <stop offset="1" stopColor="#b79768" stopOpacity="0.8" />
           </linearGradient>
         </defs>
         <motion.path d="M0 1 H468" stroke="url(#footer-line-l)" strokeWidth="1" vectorEffect="non-scaling-stroke" fill="none" {...line} />

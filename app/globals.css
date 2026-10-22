@@ -1,19 +1,23 @@
 @import "tailwindcss";
 
+/* Sampled from the approved 19 October 2026 brand board.
+   Near-black #090601, deep brown #1d130a, bronze #8a693e,
+   champagne #b79768. Text accents are lightened only as far as
+   WCAG AA on #090601 requires. */
 @theme {
-  --color-ink-950: #050505;
-  --color-ink-900: #0a0a0a;
-  --color-ink-800: #101010;
-  --color-ink-700: #171614;
-  --color-gold: #d3af37;
-  --color-gold-bright: #f0cf68;
-  --color-gold-muted: #8d7530;
+  --color-ink-950: #090601;
+  --color-ink-900: #120e0a;
+  --color-ink-800: #1b1510;
+  --color-ink-700: #2a2118;
+  --color-gold: #c4a574;
+  --color-gold-bright: #efe4d2;
+  --color-gold-muted: #b79768;
   --color-bone: #f4f0e6;
-  --color-stone: #aaa69d;
-  --color-stone-dim: #85817a;
+  --color-stone: #c8bfb2;
+  --color-stone-dim: #9a9186;
   --color-risk: #e0892b;
-  --color-line: rgb(211 175 55 / 0.14);
-  --color-line-strong: rgb(211 175 55 / 0.32);
+  --color-line: rgb(183 151 104 / 0.14);
+  --color-line-strong: rgb(183 151 104 / 0.32);
 
   --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-brand-in-out: cubic-bezier(0.65, 0, 0.35, 1);
@@ -53,7 +57,7 @@
   }
 
   ::selection {
-    background: rgb(211 175 55 / 0.32);
+    background: rgb(183 151 104 / 0.32);
     color: var(--color-bone);
   }
 
@@ -127,9 +131,9 @@
   background: linear-gradient(
     90deg,
     transparent,
-    rgb(211 175 55 / 0.5) 20%,
-    rgb(240 207 104 / 0.7) 50%,
-    rgb(211 175 55 / 0.5) 80%,
+    rgb(183 151 104 / 0.5) 20%,
+    rgb(215 196 164 / 0.7) 50%,
+    rgb(183 151 104 / 0.5) 80%,
     transparent
   );
 }
@@ -137,9 +141,9 @@
 @utility metal-text {
   background: linear-gradient(
     180deg,
-    #f7e7b0 0%,
-    #d3af37 46%,
-    #8d7530 100%
+    #efe4d2 0%,
+    #b79768 46%,
+    #6e5430 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
@@ -473,7 +477,7 @@
   width: 1px;
   height: 1px;
   transform-origin: 0 50%;
-  background: linear-gradient(90deg, rgb(211 175 55 / 0.1), rgb(211 175 55 / 0.5));
+  background: linear-gradient(90deg, rgb(183 151 104 / 0.1), rgb(183 151 104 / 0.5));
   opacity: 0;
 }
 @media (width >= 48rem) {
@@ -498,7 +502,7 @@
   left: calc(var(--gx) * 1%);
   width: calc(var(--rx) * 2cqmin * var(--orbit-k));
   height: calc(var(--ry) * 2cqmin * var(--orbit-k));
-  border: 1px solid rgb(211 175 55 / var(--o));
+  border: 1px solid rgb(183 151 104 / var(--o));
   border-radius: 50%;
   translate: -50% -50%;
   rotate: var(--tilt);
@@ -526,7 +530,7 @@
   height: 5px;
   border-radius: 50%;
   background: var(--color-gold-bright);
-  box-shadow: 0 0 10px 2px rgb(240 207 104 / 0.35);
+  box-shadow: 0 0 10px 2px rgb(215 196 164 / 0.35);
   opacity: calc(0.35 + var(--o));
   offset-path: ellipse(50% 50% at 50% 50%);
   offset-rotate: 0deg;
@@ -570,7 +574,7 @@
   position: absolute;
   inset: -40%;
   border-radius: 50%;
-  background: radial-gradient(closest-side, rgb(211 175 55 / 0.15), rgb(211 175 55 / 0.045) 55%, transparent);
+  background: radial-gradient(closest-side, rgb(183 151 104 / 0.15), rgb(183 151 104 / 0.045) 55%, transparent);
   content: "";
 }
 .brain-globe-canvas {
