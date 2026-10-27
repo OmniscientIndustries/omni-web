@@ -17,7 +17,7 @@ export type NavItem = {
 
 export const primaryNavigation: NavItem[] = [
   { label: "Industries", href: "/industries" },
-  { label: "SafeZone Rail", href: "/products/safezone-rail" },
+  { label: "Support", href: "/support/safezone-rail" },
   { label: "Mission", href: "/mission" },
   { label: "About", href: "/about" },
   { label: "Contact Us", href: "/contact", emphasis: true },

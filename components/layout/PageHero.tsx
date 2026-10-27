@@ -15,11 +15,11 @@ export function PageHero({ eyebrow, title, intro, children, aside, back }: Props
     <section aria-labelledby="page-title" className="relative overflow-hidden pt-32 pb-16 sm:pt-40 sm:pb-20 lg:pt-48 lg:pb-24">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(55%_70%_at_80%_0%,rgb(183_151_104/0.09),transparent_70%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(55%_70%_at_80%_0%,rgb(211_175_55/0.09),transparent_70%)]"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgb(183_151_104/0.035)_1px,transparent_1px)] bg-[size:100%_88px] [mask-image:linear-gradient(180deg,#000,transparent_85%)]"
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgb(211_175_55/0.035)_1px,transparent_1px)] bg-[size:100%_88px] [mask-image:linear-gradient(180deg,#000,transparent_85%)]"
       />
       <div className="container-site relative">
         {back ? (

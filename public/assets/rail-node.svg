@@ -6,9 +6,9 @@
       <stop offset="1" stop-color="#070707"/>
     </radialGradient>
   </defs>
-  <circle cx="80" cy="80" r="74" stroke="#b79768" stroke-opacity=".22" stroke-dasharray="2 6"/>
-  <circle cx="80" cy="80" r="62" fill="url(#g)" stroke="#b79768" stroke-opacity=".55" stroke-width="1.5"/>
-  <g stroke="#d7c4a4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="80" cy="80" r="74" stroke="#d3af37" stroke-opacity=".22" stroke-dasharray="2 6"/>
+  <circle cx="80" cy="80" r="62" fill="url(#g)" stroke="#d3af37" stroke-opacity=".55" stroke-width="1.5"/>
+  <g stroke="#f0cf68" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
     <path d="M60 112 72 48M100 112 88 48"/>
     <path d="M52 104h56M56 88h48M60 74h40M64 62h32M68 52h24" stroke-opacity=".7" stroke-width="2.5"/>
   </g>

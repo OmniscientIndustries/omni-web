@@ -19,17 +19,17 @@ export function ConvergingPaths() {
       <svg viewBox="0 0 1000 300" className="h-auto w-full overflow-visible">
         <defs>
           <linearGradient id="path-gold" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="800" y2="0">
-            <stop offset="0" stopColor="#6e5430" stopOpacity="0.2" />
-            <stop offset="1" stopColor="#d7c4a4" />
+            <stop offset="0" stopColor="#8d7530" stopOpacity="0.2" />
+            <stop offset="1" stopColor="#f0cf68" />
           </linearGradient>
         </defs>
         <motion.path d="M0 40 C 320 40, 520 60, 780 150" fill="none" stroke="url(#path-gold)" strokeWidth="1.5" {...draw(0)} />
         <motion.path d="M0 260 C 320 260, 520 240, 780 150" fill="none" stroke="url(#path-gold)" strokeWidth="1.5" {...draw(0.15)} />
-        <motion.path d="M780 150 H 1000" fill="none" stroke="#b79768" strokeWidth="1.5" strokeDasharray="4 6" {...draw(1.5)} />
+        <motion.path d="M780 150 H 1000" fill="none" stroke="#d3af37" strokeWidth="1.5" strokeDasharray="4 6" {...draw(1.5)} />
         {[120, 300, 480].map((x, i) => (
           <g key={x}>
-            <circle cx={x} cy={40 + i * 6 + (i === 2 ? 14 : 0)} r="4" fill="#b79768" />
-            <circle cx={x} cy={260 - i * 6 - (i === 2 ? 14 : 0)} r="4" fill="#b79768" />
+            <circle cx={x} cy={40 + i * 6 + (i === 2 ? 14 : 0)} r="4" fill="#d3af37" />
+            <circle cx={x} cy={260 - i * 6 - (i === 2 ? 14 : 0)} r="4" fill="#d3af37" />
           </g>
         ))}
       </svg>

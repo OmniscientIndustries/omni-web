@@ -57,7 +57,7 @@ export function Core({ store, quality, halo }: Props) {
     const sparkMaterial = new THREE.MeshBasicMaterial({ color: "#ffe9a8", toneMapped: false });
     const glowMaterial = new THREE.SpriteMaterial({
       map: halo,
-      color: "#b79768",
+      color: "#d3af37",
       transparent: true,
       opacity: 0,
       depthWrite: false,
@@ -93,7 +93,7 @@ export function Core({ store, quality, halo }: Props) {
     tipGeometry.setAttribute("position", new THREE.BufferAttribute(tipPositions, 3));
     const tipMaterial = new THREE.PointsMaterial({
       map: halo,
-      color: "#d7c4a4",
+      color: "#f0d079",
       size: 0.085,
       sizeAttenuation: true,
       transparent: true,

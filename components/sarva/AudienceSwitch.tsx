@@ -54,7 +54,7 @@ export function AudienceSwitch() {
               {isSelected ? (
                 <motion.span
                   layoutId="audience-pill"
-                  className="absolute inset-0 -z-10 rounded-lg bg-[linear-gradient(180deg,#d7c4a4,#C9A633)]"
+                  className="absolute inset-0 -z-10 rounded-lg bg-[linear-gradient(180deg,#E2C25A,#C9A633)]"
                   transition={{ duration: 0.35, ease: ease.brand }}
                 />
               ) : null}

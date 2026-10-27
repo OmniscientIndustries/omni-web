@@ -7,7 +7,7 @@ import { brainNodes, RISK_PAIR, type BrainStore } from "../brain-config";
 import { damp, easeOutCubic, introStage, phases } from "../brain-math";
 import { createIndustryIcon } from "../industry-icons";
 
-const GOLD = new THREE.Color("#b79768");
+const GOLD = new THREE.Color("#d3af37");
 const AMBER = new THREE.Color("#e0892b");
 
 export function IndustryNodes({ store, halo }: { store: BrainStore; halo: THREE.Texture }) {

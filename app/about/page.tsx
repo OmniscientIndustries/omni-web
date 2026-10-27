@@ -79,7 +79,7 @@ export default function AboutPage() {
 
       <section aria-labelledby="ambition-title" className="py-24 sm:py-32">
         <div className="container-site">
-          <Reveal className="grid gap-8 rounded-[22px] border border-line bg-[radial-gradient(70%_120%_at_100%_0%,rgb(183_151_104/0.1),transparent_60%)] p-8 sm:p-12 lg:grid-cols-12 lg:p-16">
+          <Reveal className="grid gap-8 rounded-[22px] border border-line bg-[radial-gradient(70%_120%_at_100%_0%,rgb(211_175_55/0.1),transparent_60%)] p-8 sm:p-12 lg:grid-cols-12 lg:p-16">
             <div className="lg:col-span-5">
               <p className="eyebrow mb-5">United Kingdom · India · Global</p>
               <h2 id="ambition-title" className="text-heading text-[clamp(1.9rem,3.6vw,3rem)] text-bone">

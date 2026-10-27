@@ -18,7 +18,7 @@ export function IndustryFeatureCard({ industry, index, subtitle, sizes, classNam
   return (
     <Link
       href={industry.href}
-      className={`group relative flex flex-col overflow-hidden rounded-[20px] border border-line bg-ink-900 transition-[border-color,box-shadow] duration-[var(--duration-standard)] ease-[var(--ease-brand)] hover:border-line-strong hover:shadow-[0_30px_80px_-40px_rgb(183_151_104/0.35)] focus-visible:border-gold/70 ${className}`}
+      className={`group relative flex flex-col overflow-hidden rounded-[20px] border border-line bg-ink-900 transition-[border-color,box-shadow] duration-[var(--duration-standard)] ease-[var(--ease-brand)] hover:border-line-strong hover:shadow-[0_30px_80px_-40px_rgb(211_175_55/0.35)] focus-visible:border-gold/70 ${className}`}
     >
       <div className="relative">
         <MediaFrame

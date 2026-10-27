@@ -39,9 +39,9 @@ export function VisualFrame({
           <stop offset="1" stopColor="#050505" />
         </radialGradient>
         <radialGradient id={`${uid}-glow`}>
-          <stop offset="0" stopColor="#d7c4a4" stopOpacity="0.9" />
-          <stop offset="0.35" stopColor="#b79768" stopOpacity="0.3" />
-          <stop offset="1" stopColor="#b79768" stopOpacity="0" />
+          <stop offset="0" stopColor="#f0cf68" stopOpacity="0.9" />
+          <stop offset="0.35" stopColor="#d3af37" stopOpacity="0.3" />
+          <stop offset="1" stopColor="#d3af37" stopOpacity="0" />
         </radialGradient>
         <linearGradient id={`${uid}-fade`} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#050505" stopOpacity="0" />

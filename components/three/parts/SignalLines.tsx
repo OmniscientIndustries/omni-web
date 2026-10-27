@@ -62,7 +62,7 @@ export function SignalLines({ store }: { store: BrainStore }) {
   );
 
   const lines = useMemo(() => {
-    const gold = new THREE.Color("#b79768");
+    const gold = new THREE.Color("#d3af37");
     const amber = new THREE.Color("#e0892b");
     return specs.map((spec, i) => {
       const geometry = new THREE.BufferGeometry();

@@ -42,11 +42,11 @@ export function BrainVisual({ uid = "brain" }: { uid?: string }) {
           <path
             d={`M${s.x.toFixed(1)} ${s.y.toFixed(1)} Q ${((s.x + C.x) / 2).toFixed(1)} ${((s.y + C.y) / 2 - 40).toFixed(1)} ${C.x} ${C.y}`}
             fill="none"
-            stroke="#b79768"
+            stroke="#d3af37"
             strokeOpacity="0.2"
             strokeDasharray={s.d % 3 === 0 ? "2 6" : undefined}
           />
-          <rect x={s.x - 3} y={s.y - 3} width="6" height="6" fill="#b79768" fillOpacity="0.5" transform={`rotate(45 ${s.x} ${s.y})`} />
+          <rect x={s.x - 3} y={s.y - 3} width="6" height="6" fill="#d3af37" fillOpacity="0.5" transform={`rotate(45 ${s.x} ${s.y})`} />
         </g>
       ))}
       {orbits.map((o, i) => (
@@ -58,18 +58,18 @@ export function BrainVisual({ uid = "brain" }: { uid?: string }) {
           ry={o.ry}
           transform={`rotate(${o.rot} ${C.x} ${C.y})`}
           fill="none"
-          stroke="#b79768"
+          stroke="#d3af37"
           strokeOpacity={o.opacity}
           strokeDasharray={o.dash}
         />
       ))}
       <circle cx={C.x} cy={C.y} r="120" fill={`url(#${uid}-glow)`} opacity="0.5" />
-      <path d={rays} fill="#d7c4a4" fillOpacity="0.9" />
-      <circle cx={C.x} cy={C.y} r="22" fill="#d7c4a4" />
+      <path d={rays} fill="#e2c25a" fillOpacity="0.9" />
+      <circle cx={C.x} cy={C.y} r="22" fill="#f0cf68" />
       <circle cx={C.x} cy={C.y} r="12" fill="#fff4cf" fillOpacity="0.85" />
       {NODE_ANGLES.map((deg, i) => {
         const p = onOrbit(orbits[i % 2], (deg * Math.PI) / 180);
-        return <circle key={deg} cx={p.x} cy={p.y} r="4.5" fill="#d7c4a4" />;
+        return <circle key={deg} cx={p.x} cy={p.y} r="4.5" fill="#f0cf68" />;
       })}
       <rect width="800" height="600" fill={`url(#${uid}-fade)`} />
     </VisualFrame>

@@ -24,7 +24,7 @@ export function OrbitRings({ store }: { store: BrainStore }) {
     const materials = RINGS.map(
       () =>
         new THREE.MeshBasicMaterial({
-          color: "#b79768",
+          color: "#d3af37",
           transparent: true,
           opacity: 0,
           depthWrite: false,
@@ -32,7 +32,7 @@ export function OrbitRings({ store }: { store: BrainStore }) {
         }),
     );
     const tickGeometry = new THREE.BoxGeometry(0.008, 0.07, 0.008);
-    const tickMaterial = new THREE.MeshBasicMaterial({ color: "#6e5430", transparent: true, opacity: 0, toneMapped: false });
+    const tickMaterial = new THREE.MeshBasicMaterial({ color: "#8d7530", transparent: true, opacity: 0, toneMapped: false });
     return { geometries, materials, tickGeometry, tickMaterial };
   }, []);
 

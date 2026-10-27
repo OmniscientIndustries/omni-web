@@ -22,7 +22,7 @@ export function HeroParticles() {
           cx={`${p.x}%`}
           cy={`${p.y}%`}
           r={p.r}
-          fill="#b79768"
+          fill="#d3af37"
           opacity={p.o}
           data-t={p.t}
           style={{ animationDelay: `${p.delay}s`, ["--o" as string]: p.o }}

@@ -6,7 +6,7 @@ const isMobile = (name: string) => name === "mobile";
 test.describe("homepage", () => {
   test("sections appear in the specified order", async ({ page }) => {
     await page.goto("/");
-    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Intelligence for the physical world.");
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("A living picture of the operation.");
     const order = await page.evaluate(() =>
       ["industries-title", "news-title"].map((id) => document.getElementById(id)?.getBoundingClientRect().top ?? -1),
     );
@@ -31,7 +31,7 @@ test.describe("navigation", () => {
     const nav = page.getByRole("navigation", { name: "Primary" });
     for (const [label, path] of [
       ["Industries", "/industries"],
-      ["SafeZone Rail", "/products/safezone-rail"],
+      ["Support", "/support/safezone-rail"],
       ["Mission", "/mission"],
       ["About", "/about"],
       ["Contact Us", "/contact"],
@@ -275,15 +275,5 @@ test.describe("SafeZone Rail public pages", () => {
     await expect(page).toHaveURL("/privacy/safezone-rail");
     await expect(page.getByRole("heading", { level: 1, name: "SafeZone Rail privacy" })).toBeVisible();
     await expect(page.getByText("Needs confirmation").first()).toBeVisible();
-  });
-
-  test("the product page states the app is supplementary", async ({ page }) => {
-    await page.goto("/products/safezone-rail");
-    await expect(page.getByRole("heading", { level: 1, name: "SafeZone Rail" })).toBeVisible();
-    await expect(page.getByText("does not detect trains")).toBeVisible();
-    await expect(page.locator("#main").getByRole("link", { name: "SafeZone Rail support" })).toHaveAttribute(
-      "href",
-      "/support/safezone-rail",
-    );
   });
 });

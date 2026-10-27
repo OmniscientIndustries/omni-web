@@ -36,7 +36,7 @@ export function AnnotatedImage({
               style={{ left: `${c.x}%`, top: `${c.y}%`, ["--delay" as string]: `${500 + i * 140}ms` }}
             >
               <span className="absolute -translate-x-1/2 -translate-y-1/2">
-                <span className="block size-4 rounded-full border border-gold-bright/90 bg-ink-950/40 shadow-[0_0_14px_rgb(215_196_164/0.45)] sm:size-5" />
+                <span className="block size-4 rounded-full border border-gold-bright/90 bg-ink-950/40 shadow-[0_0_14px_rgb(240_207_104/0.45)] sm:size-5" />
                 <span className="absolute inset-0 m-auto block size-1.5 rounded-full bg-gold-bright" />
               </span>
               <span

@@ -51,7 +51,7 @@ export function DroneScanTwin({ image, children }: { image: Img; children?: Reac
       <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
         {/* Faint digitising grid that breathes as the structure is reconstructed */}
         <motion.div
-          className="absolute inset-0 bg-[linear-gradient(90deg,rgb(183_151_104/0.5)_1px,transparent_1px),linear-gradient(0deg,rgb(183_151_104/0.5)_1px,transparent_1px)] bg-[size:46px_46px] [mask-image:radial-gradient(60%_70%_at_62%_46%,#000_0%,transparent_75%)]"
+          className="absolute inset-0 bg-[linear-gradient(90deg,rgb(211_175_55/0.5)_1px,transparent_1px),linear-gradient(0deg,rgb(211_175_55/0.5)_1px,transparent_1px)] bg-[size:46px_46px] [mask-image:radial-gradient(60%_70%_at_62%_46%,#000_0%,transparent_75%)]"
           initial={{ opacity: 0 }}
           animate={active ? { opacity: reduce ? 0.12 : [0.06, 0.16, 0.06] } : { opacity: 0 }}
           transition={reduce ? { duration: 0.6 } : { duration: SWEEP_SECONDS, repeat: Infinity, ease: "easeInOut" }}
